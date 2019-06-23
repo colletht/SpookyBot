@@ -1,0 +1,22 @@
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "A small discord bot to do miscellaneous tasks for our discord server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colletht/SpookyBot.git"
+  },
+  "author": "Harry Collet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colletht/SpookyBot/issues"
+  },
+  "homepage": "https://github.com/colletht/SpookyBot#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
