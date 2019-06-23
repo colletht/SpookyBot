@@ -4,7 +4,9 @@
   "description": "A small discord bot to do miscellaneous tasks for our discord server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev-start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,9 @@
   },
   "homepage": "https://github.com/colletht/SpookyBot#readme",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.0.0",
+    "fs": "0.0.1-security",
+    "nodemon": "^1.19.1"
   }
 }
