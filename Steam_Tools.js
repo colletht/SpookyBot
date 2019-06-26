@@ -1,9 +1,14 @@
 //utility class for parsing and performing operations on the output returned from the steam api
 
+require('dotenv').config();
+
 const async = require('async');
 
+const steamAPI = require('steamapi');
+const steam = new steamAPI(process.env.STEAM_API_KEY);
+
     //takes as argument a JSON game list from steam api and returns a string of games and playtime
-exports.stringGames = gameListJSON => {
+exports.stringGames = function(gameListJSON) {
     var outputString = ""
 
     for(var i = 0; i < gameListJSON.length; ++i){
@@ -13,9 +18,7 @@ exports.stringGames = gameListJSON => {
     return outputString;
 }
 
-
-
-var intersectHelper = (list1, list2) => { 
+var intersectHelper = function(list1, list2) { 
     outputGameList = [];
 
     return list1.filter(function(game) {
@@ -30,8 +33,19 @@ var intersectHelper = (list1, list2) => {
 }
 
 //gets the intersection of the list of games lists provided to the function
-exports.intersectGames = gamesListJSON => {
+exports.intersectGames = function(gamesListJSON) {
     outputGameList = [];
 
     return gamesListJSON.reduce(intersectHelper);
+}
+
+//checks if given string represents a valid link to a user in steam
+//aka: can steam resolve it
+//if it can it calls callback(true) else callback(false)
+exports.verifyUsername = function(username, callback) {
+    steam.resolve('https://steamcommunity.com/id/' + username).then(function(result){
+        callback(true);
+    }).catch(function(err){
+        callback(false);
+    })
 }

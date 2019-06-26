@@ -6,6 +6,7 @@
 
 //for neater handling of nested callbacks
 const async = require('async');
+const utils = require('./util');
 
 //for access to our steam key
 require('dotenv').config();
@@ -20,9 +21,12 @@ const steamtools = require('./Steam_Tools');
 //Parameters: Bot - reference to the main Bot object
 //            args - the remaining string from the command call i.e. excluding !shared-games
 //                   should include only names of users
-exports.sharedGames = (Bot, msg, args) => {
+exports.sharedGames = function(Bot, msg, args) {
     //transform remaining args into array of arguments
     args = args.trim().split(" ");
+
+    //TODO: error check args before processing
+    //convert tags using new apis
 
     console.log(args);
 
@@ -54,12 +58,12 @@ exports.sharedGames = (Bot, msg, args) => {
     ], 
     function(err, result){
         if(err){
-            msg.reply(err);
+            msg.channel.send(err);
             console.log(err);
         }else{
             //print to server here
             console.log(result.length);
-            msg.reply(steamtools.stringGames(steamtools.intersectGames(result)));
+            msg.channel.send(steamtools.stringGames(steamtools.intersectGames(result)));
             console.log('done');
         }
     })   
@@ -69,8 +73,12 @@ exports.sharedGames = (Bot, msg, args) => {
 //Parameters: Bot - reference to the main Bot object
 //            args - the remaining string from the command call i.e. excluding !shared-games
 //                   should include a single username
-exports.listGames = (Bot, msg, args) => {
+exports.listGames = function(Bot, msg, args) {
     args = args.trim();
+
+    
+    //TODO: error check args before processing
+    //convert tags using new apis
 
     console.log(args);
 
@@ -92,12 +100,73 @@ exports.listGames = (Bot, msg, args) => {
     ], 
     function(err, result){
         if(err){
-            msg.reply(err);
+            msg.channel.send(err);
             console.log(err);
         }else{
             //print to server here
-            msg.reply(`${steamtools.stringGames(result)}`);
+            msg.channel.send(`${steamtools.stringGames(result)}`);
             console.log('done');
         }
     })   
+}
+
+//Definition: command for linking a user tag to a username from steam
+//Parameters: Bot - reference to the main Bot object
+//            msg - reference to the msg that called the command
+//            args - the remaining string after the call i.e. excluding
+//                   !link-steam, can include a single steam username, or
+//                   a tagged user followed by a username
+exports.linkSteam = function(Bot, msg, args) {
+    args = args.trim().split(' ');
+    var user_to_link;   //discord user to link steam account to
+    var linked_account; //steam account username
+    if(args.length === 1){
+        //case we want to link account to the msg senders account
+        console.log('DEBUG OUTPUT: USER RETRIEVED FROM CALL TO LINK STEAM' + msg.author.tag);
+        user_to_link = msg.author.tag;
+        linked_account = args[0];
+    }else if(args.length === 2 && args.mentions.users.length !== 0){
+        //case we are linking accounts other than our own
+        console.log('DEBUG OUTPUT: USERS TAGGED IN CALL TO LINK STEAM: ' + msg.mentions.users);
+        user_to_link = msg.mentions.users[0].tag;
+        linked_account = args[1];
+    }else{
+        //invalid args
+        return false;
+    }
+
+    steamtools.verifyUsername(linked_account, function(valid){
+        if(valid){
+            utils.addSteamAccountLink(user_to_link, linked_account);
+            console.log('Linking success!');
+            msg.channel.send(`Linked ${user_to_link} to steam account ${linked_account}`);
+        }else{
+            console.log("Invalid username");
+            msg.channel.send('Steam username does not exist');
+        }
+    })
+
+
+}
+
+//Definition: Removes a previously linked tag:steam account pair from the database
+//            If the tag is not in the database nothing is changed
+//Parameters: Bot - reference to the main Bot object
+//            msg - reference to the msg that called the command
+//            args - the remaining string after the call i.e. excluding
+//                   !remove-link-steam, can include a tag, or no argument
+//                   in which case the author of the messages's tag is used
+exports.removeLinkSteam = function(Bot, msg, args) {
+    args = args.trim().split(' ');
+    var user_to_unlink;
+
+    if(args.length == 0){
+        user_to_unlink = msg.author.tag;
+    }else if(args.length == 1 && msg.mentions.users.length !== 0){
+        user_to_unlink = msg.mentions.users[0].tag;
+    }else{
+        return false;
+    }
+
+    utils.rmSteamAccountLink(user_to_unlink);
 }

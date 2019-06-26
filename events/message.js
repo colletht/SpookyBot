@@ -13,4 +13,10 @@ module.exports = (Bot, msg) => {
     if(msg.content.startsWith('!list-games ')){
         events.listGames(Bot, msg, msg.content.replace("!list-games ", ""));
     }
+    if(msg.content.startsWith('!link-steam ')){
+        events.linkSteam(Bot, msg, msg.content.replace('!link-steam ',''));
+    }
+    if(msg.content.startsWith('!remove-link-steam ')){
+        events.removeLinkSteam(Bot, msg, msg.content.replace('!remove-link-steam ',''));
+    }
 }
