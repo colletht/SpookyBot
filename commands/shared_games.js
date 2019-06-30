@@ -22,25 +22,21 @@ module.exports = {
     name        : 'shared-games',
     description : 'display the games any number of linked users have in common on steam',
     execute(msg, args) {
-        console.log(args);
-        if(!args.length){
+        if(args.length < 2){
             //invalid args
             return false;
         }
 
-        args = args.filter(arg => arg.match(/<@>/));
+        args = args.filter(arg => !arg.startsWith('<@'));
 
-        //convert args to all steam accounts
+        //convert tags to all steam accounts
         args = args.concat(msg.mentions.users.map(arg => {
-            console.log(arg.tag);
             var user = utils.getSteamAccountFromUsername(arg.tag);
             if(user){
                 return user;
             }
             return null;
         }).filter(res => res !== null));
-
-        console.log('----> ' + args);
 
         //call the steam api and get the results to the server output
         async.waterfall([
@@ -72,7 +68,7 @@ module.exports = {
                 console.log(err);
             }else{
                 //print to server here
-                msg.channel.send(steamtools.stringGames(steamtools.intersectGames(result)));
+                msg.author.send(steamtools.stringGames(steamtools.intersectGames(result)));
                 console.log('done');
             }
         })   

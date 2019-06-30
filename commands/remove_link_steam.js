@@ -27,5 +27,6 @@ module.exports = {
         }
 
         utils.rmSteamAccountLink(user_to_unlink);
+        msg.reply("Removed account linked to " + msg.mentions.users.first());
     }
 }

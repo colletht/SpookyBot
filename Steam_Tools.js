@@ -11,7 +11,12 @@ const steam = new steamAPI(process.env.STEAM_API_KEY);
 exports.stringGames = function(gameListJSON) {
     var outputString = ""
 
+    //only prints max of 2000 Games
     for(var i = 0; i < gameListJSON.length; ++i){
+        if(1970 < outputString.length + gameListJSON[i].name.length){
+            outputString += '---Message limit reached---'
+            break;
+        }
         outputString += `${gameListJSON[i].name}\n`;
     }
 

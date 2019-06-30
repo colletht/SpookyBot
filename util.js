@@ -48,3 +48,14 @@ exports.getSteamAccountFromUsername = function(username){
     }    
 }
 
+exports.sarcastify = function(string){
+    var new_str = '';
+    for(var i in string){
+        if(Math.round(Math.random()) === 1){
+            new_str += string.charAt(i).toUpperCase();
+        }else{
+            new_str += string.charAt(i).toLowerCase();
+        }
+    }
+    return new_str;
+}

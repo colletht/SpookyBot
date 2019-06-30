@@ -55,7 +55,7 @@ module.exports = {
                 console.log(err);
             }else{
                 //print to server here
-                msg.channel.send(`${steamtools.stringGames(result)}`);
+                msg.author.send(`${steamtools.stringGames(result)}`);
                 console.log('!list-games executed succesfully');
             }
         })
