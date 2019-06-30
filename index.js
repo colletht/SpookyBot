@@ -8,9 +8,17 @@ require('dotenv').config();
 //import discord and initialize bot
 const Discord = require('discord.js');
 const Bot = new Discord.Client();
+Bot.commands = new Discord.Collection();
 
 //include file manager library
-const fs = require('fs');
+const fs = require('file-system');
+
+//read in all commands from command file
+const cmd_files = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for(const file of cmd_files){
+    const cmd = require(`./commands/${file}`);
+    Bot.commands.set(cmd.name, cmd);
+}
 
 //import all our event handlers
 fs.readdir('./events/', (err, files) => {
@@ -20,6 +28,7 @@ fs.readdir('./events/', (err, files) => {
         Bot.on(eventName, (...args) => eventHandler(Bot, ...args)); //add listener to Bot
     });
 })
+
 
 //connect with discord
 Bot.login(process.env.ACCESS_TOKEN);

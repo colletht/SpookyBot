@@ -43,9 +43,10 @@ exports.intersectGames = function(gamesListJSON) {
 //aka: can steam resolve it
 //if it can it calls callback(true) else callback(false)
 exports.verifyUsername = function(username, callback) {
-    steam.resolve('https://steamcommunity.com/id/' + username).then(function(result){
+    steam.resolve(`https://steamcommunity.com/id/${username}`).then(function(result){
         callback(true);
     }).catch(function(err){
+        console.log('Error: verifyUsername ' + err);
         callback(false);
     })
 }

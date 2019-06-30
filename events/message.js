@@ -1,22 +1,30 @@
 //event handler function for the message event
 
+require('dotenv').config();
+
 //import commands from commands module
-const events = require('../commands');
+const fs = require('file-system');
 
 module.exports = (Bot, msg) => {
-    if(msg.content === 'hi'){
-        msg.reply('Boo!');
+    //here we handle all standard command invokations
+    if(msg.content.startsWith(process.env.PREFIX) && !msg.author.bot){
+
+        const args = msg.content.slice(process.env.PREFIX.length).split(/ +/);
+        const cmd = args.shift();
+        
+        if (Bot.commands.has(cmd)){
+
+            try {
+                Bot.commands.get(cmd).execute(msg, args);
+            } catch (err) {
+                console.error(err);
+            }
+        }
     }
-    if(msg.content.startsWith("!shared-games ")){
-        events.sharedGames(Bot, msg, msg.content.replace("!shared-games ", ""));
-    }
-    if(msg.content.startsWith('!list-games ')){
-        events.listGames(Bot, msg, msg.content.replace("!list-games ", ""));
-    }
-    if(msg.content.startsWith('!link-steam ')){
-        events.linkSteam(Bot, msg, msg.content.replace('!link-steam ',''));
-    }
-    if(msg.content.startsWith('!remove-link-steam ')){
-        events.removeLinkSteam(Bot, msg, msg.content.replace('!remove-link-steam ',''));
+
+    //handle custom command invokations here
+    if(!msg.author.bot && -1 < msg.content.search(/i[']?m/i)){
+        args = msg.content.split(msg.content.match(/i[']?m/i)[0])
+        require('../custom_commands/dad_joke').execute(msg, args);
     }
 }
