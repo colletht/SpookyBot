@@ -15,6 +15,7 @@ util = require('../util');
 module.exports = {
     name        : 'remove-link-steam',
     description : 'Allows a user to remove their, or anothers users steam linkage with the bot',
+    permissions : [],
     execute(msg, args) {
         var user_to_unlink;
 

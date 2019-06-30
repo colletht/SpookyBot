@@ -5,6 +5,7 @@
 module.exports = {
     name        : 'Dad Joke',
     description : 'Listens for dad jokable moments',
+    permissions : [],
     execute(msg, args) {
         var ret_string = args.pop().trim();
 

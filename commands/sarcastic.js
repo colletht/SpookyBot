@@ -7,17 +7,18 @@ const utils = require('../util');
 module.exports = {
     name        : "s",
     description : "Transforms entire string following the command into \"SarCAsTiC\" text",
+    permissions : ["MANAGE_MESSAGES"],
     execute(msg, args){
         if(!args){
             return false;
         }
         //delete calling message
-        msg.delete(50);
+        msg.delete(20);
 
         var out_str = '';
 
         for(var token of args){
-            out_str += utils.sarcastify(token) + ' ';
+            out_str += `*${utils.sarcastify(token)}* `;
         }
 
         msg.channel.send(out_str);
