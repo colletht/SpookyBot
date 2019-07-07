@@ -21,7 +21,9 @@ const steamtools = require('../Steam_Tools');
 module.exports = {
     name        : 'list-games',
     description : 'display a linked users games list on steam',
+    usage       : `${process.env.PREFIX}list-games <tagged user>\n${process.env.PREFIX}list-games <steam user>\nOr to list your own games\n${process.env.PREFIX}list-games`,
     permissions : [],
+    cooldown    : 5,
     execute(msg, args) {
         if(!args.length){
             //case use authors tag
@@ -56,7 +58,7 @@ module.exports = {
                 console.log(err);
             }else{
                 //print to server here
-                msg.author.send(`--------------------\n${steamtools.stringGames(result)}--------------------\n`);
+                msg.author.send(`--------------------\n${steamtools.stringGames(result)}--------------------\n`, {split : true});
                 console.log('!list-games executed succesfully');
             }
         })

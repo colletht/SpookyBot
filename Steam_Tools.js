@@ -13,10 +13,6 @@ exports.stringGames = function(gameListJSON) {
 
     //only prints max of 2000 Games
     for(var i = 0; i < gameListJSON.length; ++i){
-        if(1900 < outputString.length + gameListJSON[i].name.length){
-            outputString += '---Message limit reached---\n'
-            break;
-        }
         outputString += `${gameListJSON[i].name}\n`;
     }
 

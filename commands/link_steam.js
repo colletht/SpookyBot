@@ -17,7 +17,9 @@ const steamtools = require('../Steam_Tools');
 module.exports = {
     name        : 'link-steam',
     description : 'Links a discord tag with a valid steam username',
+    usage       : `${process.env.PREFIX}link-steam <tagged user> <steam user>\nOr to link yourself\n${process.env.PREFIX}link-steam <steam user>`,
     permissions : [],
+    cooldown    : 3,
     execute(msg, args) {
         var user_to_link;   //discord user to link steam account to
         var linked_account; //steam account username

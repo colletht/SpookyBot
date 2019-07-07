@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const utils = require('../util');
 
 //Description:  Transforms entire string following the command into "SarCAsTiC"
@@ -7,7 +7,9 @@ const utils = require('../util');
 module.exports = {
     name        : "s",
     description : "Transforms entire string following the command into \"SarCAsTiC\" text",
+    usage       : `${process.env.PREFIX}s <message>`,
     permissions : ["MANAGE_MESSAGES"],
+    cooldown    : 2,
     execute(msg, args){
         if(!args){
             return false;

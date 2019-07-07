@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const utils = require('../util');
 
 //Description:  removes sarcastification of role
@@ -6,7 +6,9 @@ const utils = require('../util');
 module.exports = {
     name        : "desarcastify-role",
     description : "All messages of given user into \"SarCAsTiC\" text",
+    usage       : `${process.env.PREFIX}desarcastify-role <tagged role>`,
     permissions : [],
+    cooldown    : 2,
     execute(msg, args){
         if(!args.length || !msg.mentions.roles){
             return false;

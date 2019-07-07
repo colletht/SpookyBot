@@ -6,8 +6,10 @@ const utils = require('../util');
 //Parameters:   A string
 module.exports = {
     name        : "sarcastify-role",
-    description : "All messages of given user into \"SarCAsTiC\" text",
+    description : "All messages sent by users with given role will be transformed into \"SarCAsTiC\" text",
+    usage       : `${process.env.PREFIX}sarcastify-role <tagged role>`,
     permissions : ["MANAGE_MESSAGES"],
+    cooldown    : 5,
     execute(msg, args){
         if(!args.length || !msg.mentions.roles){
             return false;

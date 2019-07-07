@@ -21,7 +21,9 @@ const steamtools = require('../Steam_Tools');
 module.exports = {
     name        : 'shared-games',
     description : 'display the games any number of linked users have in common on steam',
+    usage       : `${process.env.PREFIX}shared-games <tagged user or steam user> ...`,
     permissions : [],
+    cooldown    : 5,
     execute(msg, args) {
         if(args.length < 2){
             //invalid args
@@ -69,7 +71,7 @@ module.exports = {
                 console.log(err);
             }else{
                 //print to server here
-                msg.author.send('--------------------\n' + steamtools.stringGames(steamtools.intersectGames(result)) + '--------------------\n');
+                msg.author.send('--------------------\n' + steamtools.stringGames(steamtools.intersectGames(result)) + '--------------------\n', {split : true});
                 console.log('done');
             }
         })   
