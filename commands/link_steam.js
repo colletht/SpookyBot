@@ -32,7 +32,8 @@ module.exports = {
             user_to_link = msg.mentions.users.first().tag;
             linked_account = args[1];
         }else{
-            //invalid args
+            //invalid args            
+            console.log('Command Failure: Invalid arguments');
             return false;
         }
 

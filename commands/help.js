@@ -19,7 +19,7 @@ module.exports = {
             data.push(`If you want info about just one command type ${process.env.PREFIX}help <command name>`);
 
             msg.author.send(data, {split : true});
-        }else{
+        }else if(commands.get(args[0])){
             const cmd = commands.get(args[0]);
             if(cmd){
                 data.push(`**Command:    ** ${cmd.name}`);
@@ -29,6 +29,13 @@ module.exports = {
 
                 msg.author.send(data, {split : true});
             }
+        }else{
+            const cmd = commands.get('help');
+            data.push(`**Command:    ** ${cmd.name}`);
+            data.push(`**Description:** ${cmd.description}`);
+            data.push(`**Usage:      ** ${cmd.usage}`);
+            data.push(`**Cooldown:   ** ${cmd.cooldown}`);
+            msg.author.send(data, {split : true});
         }
     }
 }

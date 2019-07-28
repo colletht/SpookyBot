@@ -59,6 +59,7 @@ module.exports = (Bot, msg) => {
                     console.log(`Running ${cmd_str}`);
                     cmd.execute(msg, args);
                 } catch (err) {
+                    console.log(`Error running ${cmd_str}`);
                     console.error(err);
                 }
             }

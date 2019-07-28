@@ -11,6 +11,7 @@ module.exports = {
     cooldown    : 2,
     execute(msg, args){
         if(!args.length || !msg.mentions.roles){
+            console.log('Command Failure: Invalid arguments');
             return false;
         }
 
