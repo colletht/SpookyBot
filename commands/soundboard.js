@@ -15,7 +15,25 @@ var soundboardmap = {
     '6' : './mp3_files/thx.mp3',
     'thx' : './mp3_files/thx.mp3',
     '7' : './mp3_files/windows-xp.mp3',
-    'xp' : './mp3_files/windows-xp.mp3'
+    'xp' : './mp3_files/windows-xp.mp3',
+    '8' : './mp3_files/oof.mp3',
+    'oof' : './mp3_files/oof.mp3',
+    '9' : './mp3_files/vsauce.mp3',
+    'vsauce' : './mp3_files/vsauce.mp3',
+    '10' : './mp3_files/screams.mp3',
+    'screams' : './mp3_files/screams.mp3',
+    '11' : './mp3_files/depression.mp3',
+    'depression' : './mp3_files/depression.mp3',
+    '12' : './mp3_files/sure-about-that.mp3',
+    'sure-about-that' : './mp3_files/sure-about-that.mp3',
+    '13' : './mp3_files/you-what.mp3',
+    'you-what' : './mp3_files/you-what.mp3',
+    '14' : './mp3_files/best-sex.mp3',
+    'best-sex' : './mp3_files/best-sex.mp3',
+    '15' : './mp3_files/take-hat.mp3',
+    'take-hat' : './mp3_files/take-hat.mp3',
+    '16' : './mp3_files/what-kind-of-place.mp3',
+    'what-kind-of-place' : './mp3_files/what-kind-of-place.mp3'
 }
 
 module.exports = {
