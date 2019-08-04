@@ -41,7 +41,7 @@ var soundboardmap = {
 module.exports = {
     name        : 'sb',
     description : 'depending on the argument, produces a different sound in the voice channel the caller is currently in',
-    usage       : '!sb <number or name>',
+    usage       : `!sb <number (1 - ${Object.keys(soundboardmap).length/2}) or name>`,
     permissions : [],
     cooldown    : 2,
     async execute(msg, args){
