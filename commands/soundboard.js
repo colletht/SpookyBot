@@ -33,7 +33,9 @@ var soundboardmap = {
     '15' : './mp3_files/take-hat.mp3',
     'take-hat' : './mp3_files/take-hat.mp3',
     '16' : './mp3_files/what-kind-of-place.mp3',
-    'what-kind-of-place' : './mp3_files/what-kind-of-place.mp3'
+    'what-kind-of-place' : './mp3_files/what-kind-of-place.mp3',
+    '17' : './mp3_files/moan.mp3',
+    'moan' : './mp3_files/moan.mp3'
 }
 
 module.exports = {
