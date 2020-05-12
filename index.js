@@ -29,6 +29,7 @@ fs.readdir('./events/', (err, files) => {
     });
 })
 
-
 //connect with discord
-Bot.login(process.env.ACCESS_TOKEN);
+Bot
+    .login(process.env.ACCESS_TOKEN)
+    .catch((err)=>console.log(err));
